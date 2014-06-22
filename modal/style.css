@@ -1,4 +1,4 @@
-.modal-overlay
+.modal-backdrop
 {
 	width: 100%;
 	height: 100%;
@@ -6,8 +6,20 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 10;
+	z-index: 1000;
 	display: none;
+}
+
+.modal-backdrop.show
+{
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.modal-backdrop.hide
+{
+  opacity: 0.0;
+  filter: alpha(opacity=0);
 }
 
 .modal
@@ -17,18 +29,30 @@
 	box-shadow: 0 0 10px #000000;
 	border-radius: 10px;
 	overflow: hidden;
-	position: relative;
-	top: 50%;
-	left: 50%;
-	margin-top: -200px;
-	margin-left: -200px;
-	z-index: 11;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	margin: 30px auto;
+	z-index: 1100;
 	display: none;
 }
 
-.modal-header > p,h1,h2,h3,h4,h5,h6
+.modal.sm
 {
-	padding: 0px 10px;
+	width: 400px;
+}
+
+.modal.lg
+{
+	width: 800px;
+}
+
+.modal-header 
+{
+	min-height: 15px;
+	padding: 5px 15px;
+	border-bottom: 1px solid #E5E5E5;
 }
 
 .modal-body > p,h1,h2,h3,h4,h5,h6
@@ -36,19 +60,41 @@
 	padding: 0px 15px;
 }
 
-.modal-header > .close
+.modal-footer
 {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	font-size: 16px;
-	font-weight: bold;
-	color: #CCCCCC;
-	padding: 5px 10px;
-	cursor: pointer;
+	min-height: 15px;
+	padding: 5px 15px;
+	border-top: 1px solid #E5E5E5;
 }
 
-.modal-header > .close:hover
+button.close
 {
-	color: #808080;
+	-webkit-appearance: none;
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+}
+
+.close
+{
+	position: absolute;
+	top: 2%;
+	right: 2%;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 1;
+	color: #000000;
+	text-shadow: 0 1px 0 #FFFFFF;
+	filter: alpha(opacity=20);
+	opacity: .2;
+}
+
+.close:hover, .close:focus
+ {
+	color: #000000;
+	text-decoration: none;
+	cursor: pointer;
+	filter: alpha(opacity=50);
+	opacity: .5;
 }

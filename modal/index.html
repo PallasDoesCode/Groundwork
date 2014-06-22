@@ -7,38 +7,45 @@
 	</head>
 	<body>		
 		<div class="container">
-			<button class="modalClick" >Click Here to Open Modal</button>
+			<button type="button" class="modal-show" data-modal-id="modal1">Click Here to Open Modal #1</button>
+			<br /><br />
+			<button type="button" class="modal-show" data-modal-id="modal2">Click Here to Open Modal #2</button>
+			<br /><br />
+			<button type="button" id="jQueryModal" data-modal-id="gwModal">Click Here to Load An External Page</button>
 			
-			<div class="modal-overlay">
-				<div id="modal1" class="modal">
-					<div class="modal-header">
-						<h2>Modal Window Heading</h2>
-						<span class="close">X</span>
-					</div>
-					<div class="modal-body">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Voluptatum, eligendi, doloremque fuga ullam dolore asperiores nemo expedita officia magni eius error repudiandae culpa earum vel quaerat voluptatem molestiae! Esse, cupiditate?</p>
-						<h3>Heading 3</h3>
-						<h4>Heading 4</h4>
-						<h5>Heading 5</h5>
-						<h6>Heading 6</h6>
-					</div>
+			
+			<!--
+			 //
+			 // 
+			 //		Add modals after this point
+			 //
+			 //
+			 -->			
+			
+			
+			<div id="modal1" class="modal">
+				<div class="modal-header">
+					<h4>Modal Window Heading 1</h4>
+					<button class="close" >&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Voluptatum, eligendi, doloremque fuga ullam dolore asperiores nemo expedita officia magni eius error repudiandae culpa earum vel quaerat voluptatem molestiae! Esse, cupiditate?</p>
 				</div>
 			</div>
 			
-			<div class="modal-overlay">
-				<div id="modal2" class="modal">
-					<div class="modal-header">
-						<h2>Modal Window Heading 2</h2>
-						<span class="close">X</span>
-					</div>
-					<div class="modal-body">
-						<h3>Heading 3</h3>
-						<h4>Heading 4</h4>
-						<h5>Heading 5</h5>
-						<h6>Heading 6</h6>
-					</div>
+			<div id="modal2" class="modal">
+				<div class="modal-header">
+					<h4>Modal Window Heading 2</h4>
+					<button class="close" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<h3>Heading 3</h3>
+					<h4>Heading 4</h4>
+					<h5>Heading 5</h5>
+					<h6>Heading 6</h6>
 				</div>
 			</div>
+	
 		</div>
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
