@@ -1,6 +1,6 @@
 /*!
  *	Groundwork v0.2
- *	Copyright 2014
+ *	Copyright 2014 Tyler Hughes
  *	Licensed under MIT
  */
 
