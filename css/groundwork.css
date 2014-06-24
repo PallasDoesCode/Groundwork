@@ -1,0 +1,148 @@
+/*!
+ *	Groundwork v0.2
+ *	Copyright 2014 Tyler Hughes
+ *	Licensed under MIT
+ */
+
+ /*	========================================================================
+ *	Groundwork: modal.css v0.2
+ *	======================================================================== */
+
+.modal-backdrop
+{
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	display: none;
+}
+
+.modal-backdrop.show
+{
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
+.modal-backdrop.hide
+{
+  opacity: 0.0;
+  filter: alpha(opacity=0);
+}
+
+.modal
+{
+	width: 400px;
+	background-color: #FFFFFF;
+	box-shadow: 0 0 10px #000000;
+	border-radius: 10px;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	margin: 30px auto;
+	z-index: 1100;
+	display: none;
+}
+
+.modal.sm
+{
+	width: 400px;
+}
+
+.modal.lg
+{
+	width: 800px;
+}
+
+.modal-header 
+{
+	min-height: 15px;
+	padding: 5px 15px;
+	border-bottom: 1px solid #E5E5E5;
+}
+
+.modal-body > p,h1,h2,h3,h4,h5,h6
+{
+	padding: 0px 15px;
+}
+
+.modal-footer
+{
+	min-height: 15px;
+	padding: 5px 15px;
+	border-top: 1px solid #E5E5E5;
+}
+
+button.close
+{
+	-webkit-appearance: none;
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+}
+
+.close
+{
+	position: absolute;
+	top: 2%;
+	right: 2%;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 1;
+	color: #000000;
+	text-shadow: 0 1px 0 #FFFFFF;
+	filter: alpha(opacity=20);
+	opacity: .2;
+}
+
+.close:hover, .close:focus
+ {
+	color: #000000;
+	text-decoration: none;
+	cursor: pointer;
+	filter: alpha(opacity=50);
+	opacity: .5;
+}
+
+/*	========================================================================
+ *	Groundwork: tooltip.css v0.2
+ *	======================================================================== */
+
+.tooltip
+{
+	display: none;
+	position: absolute;
+	background-color: #333333;
+	color: #FFFFFF;
+	font-weight: normal;
+	font-size: 0.875rem;
+  	line-height: 1.3;
+  	padding: 0.75rem;
+  	/*
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;*/
+	max-width: 300px;
+}
+
+/*	========================================================================
+ *	Groundwork: misc.css v0.2
+ *	======================================================================== */
+
+.mute
+{
+	color: #999999;
+}
+
+/* The following code is temporary until media queries are implemented */
+.container
+{
+	width: 1000px;
+	margin: 0 auto;
+}

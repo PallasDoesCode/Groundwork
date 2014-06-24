@@ -125,27 +125,88 @@
 {
 	$.fn.tooltip = function()
 	{
-		$(this).after('<div id="tooltip"></div>');
+		$(this).after('<div class="tooltip"></div>');
 		
 		$(this).mouseover(function()
 		{
 			title = $(this).attr('title');
 			$(this).attr('title', '');
-			
+/*
+			var position = $(this).data('position');
+			var top, left;
+			$('.tooltip').text(title);
+
+			if (position == 'top')
+			{
+				top = $(this).offset().top - ($(this).height() * 2) - 10;
+				left = $(this).offset().left;
+			}
+
+			else if (position == 'right')
+			{
+				top = $(this).offset().top - ($(this).height() / 2);
+				left = $(this).offset().left + $('.tooltip').width();
+			}
+
+			else if (position == 'left')
+			{
+				top = $(this).offset().top - ($(this).height() / 2);
+				left = $(this).offset().left - ($('.tooltip').width() * 1.5);
+			}
+
+			else if (position == 'bottom')
+			{
+				top = $(this).offset().top + $(this).height() + 10;
+				left = $(this).offset().left;
+			}
+
+			$('.tooltip').css('top', top).css('left', left).show();		
+			*/
 		});
 		
 		$(this).mousemove(function(e)
 		{
-			var top = e.clientY + 10;
-			var left = e.clientX + 15;
-			
-			$('#tooltip').css('top', top).css('left', left).text(title).show();
+			var position = $(this).data('position');
+			var top, left;
+			$('.tooltip').text(title);
+
+			if (position == 'top')
+			{
+				top = $(this).offset().top - ($(this).height() * 2) - 10;
+				left = $(this).offset().left;
+			}
+
+			else if (position == 'right')
+			{
+				top = $(this).offset().top - ($(this).height() / 2);
+				left = $(this).offset().left + $('.tooltip').width();
+			}
+
+			else if (position == 'left')
+			{
+				top = $(this).offset().top - ($(this).height() / 2);
+				left = $(this).offset().left - ($('.tooltip').width() * 1.5);
+			}
+
+			else if (position == 'bottom')
+			{
+				top = $(this).offset().top + $(this).height() + 10;
+				left = $(this).offset().left;
+			}
+
+			else
+			{
+				top = e.clientY + 10;
+				left = e.clientX + 15;
+			}
+
+			$('.tooltip').css('top', top).css('left', left).show();
 		});
 		
 		$(this).mouseout(function()
 		{
 			$(this).attr('title', title);
-			$('#tooltip').hide();
+			$('.tooltip').hide();
 		});
 	}
 	
