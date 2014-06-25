@@ -125,73 +125,51 @@
 {
 	$.fn.tooltip = function()
 	{
-		$(this).after('<div class="tooltip"></div>');
+		$(this).after('<div class="tooltip"><div class="tooltip-arrow"></div></div>');
 		
 		$(this).mouseover(function()
 		{
 			title = $(this).attr('title');
 			$(this).attr('title', '');
-/*
-			var position = $(this).data('position');
-			var top, left;
-			$('.tooltip').text(title);
-
-			if (position == 'top')
-			{
-				top = $(this).offset().top - ($(this).height() * 2) - 10;
-				left = $(this).offset().left;
-			}
-
-			else if (position == 'right')
-			{
-				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left + $('.tooltip').width();
-			}
-
-			else if (position == 'left')
-			{
-				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left - ($('.tooltip').width() * 1.5);
-			}
-
-			else if (position == 'bottom')
-			{
-				top = $(this).offset().top + $(this).height() + 10;
-				left = $(this).offset().left;
-			}
-
-			$('.tooltip').css('top', top).css('left', left).show();		
-			*/
 		});
 		
 		$(this).mousemove(function(e)
 		{
+			var toolTip = $('.tooltip');
 			var position = $(this).data('position');
 			var top, left;
-			$('.tooltip').text(title);
+			toolTip.text(title);
 
 			if (position == 'top')
 			{
 				top = $(this).offset().top - ($(this).height() * 2) - 10;
 				left = $(this).offset().left;
+
+				toolTip.addClass('bottom');
 			}
 
 			else if (position == 'right')
 			{
 				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left + $('.tooltip').width();
+				left = $(this).offset().left + toolTip.width();  
+
+				toolTip.addClass('left');
 			}
 
 			else if (position == 'left')
 			{
 				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left - ($('.tooltip').width() * 1.5);
+				left = $(this).offset().left - (toolTip.width() * 1.5);
+
+				toolTip.addClass('right');
 			}
 
 			else if (position == 'bottom')
 			{
 				top = $(this).offset().top + $(this).height() + 10;
 				left = $(this).offset().left;
+
+				toolTip.addClass('top');
 			}
 
 			else
@@ -200,13 +178,33 @@
 				left = e.clientX + 15;
 			}
 
-			$('.tooltip').css('top', top).css('left', left).show();
+			toolTip.css('top', top).css('left', left).show();
 		});
 		
 		$(this).mouseout(function()
 		{
 			$(this).attr('title', title);
 			$('.tooltip').hide();
+
+			if ($('.tooltip').hasClass('top'))
+			{
+				$('.tooltip').removeClass('top');
+			}
+
+			if ($('.tooltip').hasClass('right'))
+			{
+				$('.tooltip').removeClass('arr');
+			}
+
+			if ($('.tooltip').hasClass('bottom'))
+			{
+				$('.tooltip').removeClass('bottom');
+			}
+
+			if ($('.tooltip').hasClass('left'))
+			{
+				$('.tooltip').removeClass('left');
+			}
 		});
 	}
 	
