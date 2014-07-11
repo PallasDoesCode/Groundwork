@@ -125,7 +125,7 @@
 {
 	$.fn.tooltip = function()
 	{
-		$(this).after('<div class="tooltip"><div class="tooltip-arrow"></div></div>');
+		$(this).after('<div class="tooltip"></div>');
 		
 		$(this).mouseover(function()
 		{
@@ -135,17 +135,24 @@
 		
 		$(this).mousemove(function(e)
 		{
-			var toolTip = $('.tooltip');
+			// Select the tooltip and set it's text
+			var toolTip = $(this).next($('.tooltip'));
+			toolTip.text(title);
+
+			//	Since the text function replaces all content in the div we have to
+			//	add the arrow afterward we set the tooltip's text
+			toolTip.after('<div class="tooltip-arrow"></div>');
+			var arrow = $(toolTip).find($('.tooltip-arrow'));
+
 			var position = $(this).data('position');
 			var top, left;
-			toolTip.text(title);
 
 			if (position == 'top')
 			{
 				top = $(this).offset().top - ($(this).height() * 2) - 10;
 				left = $(this).offset().left;
 
-				toolTip.addClass('bottom');
+				arrow.addClass('bottom');
 			}
 
 			else if (position == 'right')
@@ -153,7 +160,7 @@
 				top = $(this).offset().top - ($(this).height() / 2);
 				left = $(this).offset().left + toolTip.width();  
 
-				toolTip.addClass('left');
+				arrow.addClass('left');
 			}
 
 			else if (position == 'left')
@@ -161,7 +168,7 @@
 				top = $(this).offset().top - ($(this).height() / 2);
 				left = $(this).offset().left - (toolTip.width() * 1.5);
 
-				toolTip.addClass('right');
+				arrow.addClass('right');
 			}
 
 			else if (position == 'bottom')
@@ -169,7 +176,7 @@
 				top = $(this).offset().top + $(this).height() + 10;
 				left = $(this).offset().left;
 
-				toolTip.addClass('top');
+				arrow.addClass('top');
 			}
 
 			else
@@ -184,28 +191,32 @@
 		$(this).mouseout(function()
 		{
 			$(this).attr('title', title);
-			$('.tooltip').hide();
+			var toolTip = $(this).next($('.tooltip'));
+			var arrow = $(this).find($('.tooltip-arrow'));
 
-			if ($('.tooltip').hasClass('top'))
+			if ($(arrow).hasClass('top'))
 			{
-				$('.tooltip').removeClass('top');
+				$(arrow).removeClass('top');
 			}
 
-			if ($('.tooltip').hasClass('right'))
+			if ($(arrow).hasClass('right'))
 			{
-				$('.tooltip').removeClass('arr');
+				$(arrow).removeClass('right');
 			}
 
-			if ($('.tooltip').hasClass('bottom'))
+			if ($(arrow).hasClass('bottom'))
 			{
-				$('.tooltip').removeClass('bottom');
+				$(arrow).removeClass('bottom');
 			}
 
-			if ($('.tooltip').hasClass('left'))
+			if ($(arrow).hasClass('left'))
 			{
-				$('.tooltip').removeClass('left');
+				$(arrow).removeClass('left');
 			}
+
+			toolTip.hide();
 		});
+
 	}
 	
 })(jQuery);
