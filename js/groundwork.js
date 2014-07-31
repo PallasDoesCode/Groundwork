@@ -1,15 +1,15 @@
-/*!
+/*
  *	Groundwork v0.2
  *	Copyright 2014 Tyler Hughes
  *	Licensed under MIT
  */
 
- /*	========================================================================
- *	Groundwork: modal.js v0.2
- *	======================================================================== */
-
 (function($)
 {
+	/*	========================================================================
+ 	 *	Groundwork: modal.js v0.2
+ 	 *	======================================================================== */
+
 	$.fn.modal = function(userOptions)
 	{
 		var defaultOptions = 
@@ -88,7 +88,6 @@
 		*	to make the developer's life easier so that they don't
 		*	have to create the div for the backdrop.
 		*/
-		
 		$(modalID).wrapAll('<div class="modal-backdrop">');
 
 		// Have the backdrop and the modal fade in
@@ -96,8 +95,8 @@
 	}
 	
 	$('body').on('click', '.modal-show', function(event)
-	
-{		event.preventDefault();
+	{
+		event.preventDefault();
 		
 		//	Get the ID of the modal that we want to show
 		var id = $(this).data('modal-id');
@@ -115,109 +114,96 @@
 		closeModal(id);
 	});
 
-})(jQuery);
 
-/*	========================================================================
- *	Groundwork: tooltip.js v0.2
- *	======================================================================== */
+	/*	========================================================================
+	 *	Groundwork: tooltip.js v0.2
+	 *	======================================================================== */
 
-(function($)
-{
-	$.fn.tooltip = function()
+	$.fn.tooltip = function(userOptions)
 	{
-		$(this).after('<div class="tooltip"></div>');
-		
-		$(this).mouseover(function()
+		var defaultOptions =	{
+									position: $(this).data('position'),
+									follow: false
+								};
+
+		options = $.extend({}, defaultOptions, userOptions);
+
+		title = $(this).attr('title');
+
+		$('body').on("mouseenter", $(this), _mouseEnter);
+	}
+
+	function build(title)
+	{
+		var markup  = '<div class="tooltip ' + options.position + '">';
+		    markup += '<div class="tooltip-content">';
+		    markup += '<p>' + title + '</p>';
+		    markup += '<span class="tooltip-arrow"></span>';
+		    markup += '</div>';
+		    markup += '</div>';
+
+		$('body').append(markup);
+
+		var top, left;
+
+		//
+		tooltip = $('.tooltip');
+		if (options.position == "" || options.position == undefined || options.follow == true)
 		{
-			title = $(this).attr('title');
-			$(this).attr('title', '');
-		});
-		
-		$(this).mousemove(function(e)
+			_mouseMove();
+		}
+
+		else
 		{
-			// Select the tooltip and set it's text
-			var toolTip = $(this).next($('.tooltip'));
-			toolTip.text(title);
-
-			//	Since the text function replaces all content in the div we have to
-			//	add the arrow afterward we set the tooltip's text
-			toolTip.after('<div class="tooltip-arrow"></div>');
-			var arrow = $(toolTip).find($('.tooltip-arrow'));
-
-			var position = $(this).data('position');
-			var top, left;
-
-			if (position == 'top')
+			if (tooltip.hasClass('top'))
 			{
 				top = $(this).offset().top - ($(this).height() * 2) - 10;
 				left = $(this).offset().left;
-
-				arrow.addClass('bottom');
 			}
 
-			else if (position == 'right')
+			else if (tooltip.hasClass('right'))
 			{
 				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left + toolTip.width();  
-
-				arrow.addClass('left');
+				left = $(this).offset().left + toolTip.width(); 
 			}
-
-			else if (position == 'left')
-			{
-				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left - (toolTip.width() * 1.5);
-
-				arrow.addClass('right');
-			}
-
-			else if (position == 'bottom')
+			
+			else if (tooltip.hasClass('bottom'))
 			{
 				top = $(this).offset().top + $(this).height() + 10;
 				left = $(this).offset().left;
-
-				arrow.addClass('top');
 			}
 
-			else
+			else if (tooltip.hasClass('left'))
 			{
-				top = e.clientY + 10;
-				left = e.clientX + 15;
+				top = $(this).offset().top - ($(this).height() / 2);
+				left = $(this).offset().left - (toolTip.width() * 1.5);
 			}
 
-			toolTip.css('top', top).css('left', left).show();
-		});
+			tooltip.css('top', top).css('left', left).show();
+		}
+	}	
 		
-		$(this).mouseout(function()
-		{
-			$(this).attr('title', title);
-			var toolTip = $(this).next($('.tooltip'));
-			var arrow = $(this).find($('.tooltip-arrow'));
+	function _mouseEnter()
+	{
+		$(this).attr('title', '');
 
-			if ($(arrow).hasClass('top'))
-			{
-				$(arrow).removeClass('top');
-			}
+		build(title);
+	}
+		
+	function _mouseMove(e)
+	{
+		tooltip.text(title);
 
-			if ($(arrow).hasClass('right'))
-			{
-				$(arrow).removeClass('right');
-			}
+		var position = $(this).data('position');
+		var top = e.pageY + 75;
+		var left = e.pageX + 10;
 
-			if ($(arrow).hasClass('bottom'))
-			{
-				$(arrow).removeClass('bottom');
-			}
-
-			if ($(arrow).hasClass('left'))
-			{
-				$(arrow).removeClass('left');
-			}
-
-			toolTip.hide();
-		});
-
+		tooltip.css('top', top).css('left', left).show();
 	}
 	
+		function _mouseOut()
+		{
+			$(this).attr('title', title);
+			$(this).hide();
+		}
 })(jQuery);
-
