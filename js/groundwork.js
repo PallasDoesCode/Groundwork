@@ -1,5 +1,5 @@
 /*
- *	Groundwork v0.2
+ *	Groundwork v0.2.5
  *	Copyright 2014 Tyler Hughes
  *	Licensed under MIT
  */
@@ -7,7 +7,7 @@
 (function($)
 {
 	/*	========================================================================
- 	 *	Groundwork: modal.js v0.2
+ 	 *	Groundwork: modal.js v0.3
  	 *	======================================================================== */
 
 	$.fn.modal = function(userOptions)
@@ -15,7 +15,8 @@
 		var defaultOptions = 
 		{
 			size		: 	null, 
-			url			: 	null
+			url			: 	null,
+			image		: 	null 
 		}
 
 		options = $.extend({}, defaultOptions, userOptions);
@@ -36,16 +37,25 @@
 		$(modalBody).addClass('modal-body');
 
 		//	If the user provides an external link/image then load that image into the modal body
-		if (options.url)
+		if (options.url && options.image == false)
 		{
-			$(modalBody).load(options.url);	// If I use the line above then the close button will get added
-											// to the modal but when I use the load method the close button is never added...for some reason the
-											// load function is cancelling out anything that is getting added to the modal
+			$(modalBody).load(options.url);
+		}
+
+		else if (options.url && options.image == true)
+		{
+			var img = $('<img>').attr(
+			{
+    			src: options.url, 
+    			alt: options.url
+			});
+
+			$(modalBody).append(img);
 		}
 
 		else
 		{
-			//	If the user doesn not provide an external link or image then take the element
+			//	If the user doesn't not provide an external link or image then take the element
 			//	calling this plugin and load it's contents into the modal
 			$(modalBody).append(element.contents());
 		}
@@ -100,11 +110,10 @@
 		
 		//	Get the ID of the modal that we want to show
 		var id = $(this).data('modal-id');
-
 		showModal(id);
 	});
 	
-	$('body').on("click", '.close', function(event)
+	$('body').on('click', '.close', function(event)
 	{
 		event.preventDefault();
 		
