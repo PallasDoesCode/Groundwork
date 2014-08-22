@@ -131,15 +131,15 @@
 	$.fn.tooltip = function(userOptions)
 	{
 		var defaultOptions =	{
-									position: $(this).data('position'),
-									follow: false
+									position: '',
+									follow: true
 								};
 
-		options = $.extend({}, defaultOptions, userOptions);
+		options = $.extend(defaultOptions, userOptions);
 
-		title = $(this).attr('title');
-
-		$('body').on("mouseenter", $(this), _mouseEnter);
+		element = $(this);
+		title = element.attr('title');
+		element.on("mouseenter", element, _mouseEnter);
 	}
 
 	function build(title)
@@ -157,9 +157,10 @@
 
 		//
 		tooltip = $('.tooltip');
+		//alert(options.position);
 		if (options.position == "" || options.position == undefined || options.follow == true)
 		{
-			_mouseMove();
+			element.on("mousemove", element, _mouseMove);
 		}
 
 		else
@@ -173,7 +174,7 @@
 			else if (tooltip.hasClass('right'))
 			{
 				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left + toolTip.width(); 
+				left = $(this).offset().left + tooltip.width(); 
 			}
 			
 			else if (tooltip.hasClass('bottom'))
@@ -185,7 +186,7 @@
 			else if (tooltip.hasClass('left'))
 			{
 				top = $(this).offset().top - ($(this).height() / 2);
-				left = $(this).offset().left - (toolTip.width() * 1.5);
+				left = $(this).offset().left - (tooltip.width() * 1.5);
 			}
 
 			tooltip.css('top', top).css('left', left).show();
@@ -210,9 +211,10 @@
 		tooltip.css('top', top).css('left', left).show();
 	}
 	
-		function _mouseOut()
-		{
-			$(this).attr('title', title);
-			$(this).hide();
-		}
+	function _mouseOut()
+	{
+		$(this).attr('title', title);
+		$(this).hide();
+	}
+
 })(jQuery);
