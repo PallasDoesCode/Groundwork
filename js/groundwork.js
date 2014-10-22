@@ -139,6 +139,56 @@
 
 		var title = $(this).data('title');
 		build(title, options.position, options.follow);
+
+		$(this).mouseenter(function()
+		{
+			var top, left;
+
+			var tooltip = $('#tooltip');
+
+			if (tooltip.hasClass('top'))
+			{
+				top = $(this).offset().top - ($(this).height() * 2) - 10;
+				left = $(this).offset().left;
+			}
+
+			else if (tooltip.hasClass('right'))
+			{
+				top = $(this).offset().top - ($(this).height() / 2);
+				left = $(this).offset().left + tooltip.width(); 
+			}
+			
+			else if (tooltip.hasClass('bottom'))
+			{
+				top = $(this).offset().top + $(this).height() + 10;
+				left = $(this).offset().left;
+			}
+
+			else if (tooltip.hasClass('left'))
+			{
+				top = $(this).offset().top - ($(this).height() / 2);
+				left = $(this).offset().left - (tooltip.width() * 1.5);
+			}
+
+			tooltip.css('top', top).css('left', left).show();
+
+		});
+
+		$(this).mousemove(function(e)
+		{
+			if (position == "" || position == undefined || follow == true)
+			{
+				var top = e.pageY + 25;
+				var left = e.pageX + 10;
+
+				$('#tooltip').css('top', top).css('left', left).show();
+			}
+		});
+
+		$(this).mouseout(function()
+		{
+			$('#tooltip').hide();
+		});
 	}
 
 	function build(title, position, follow)
@@ -158,68 +208,6 @@
 
 			$('body').append(markup);
 		}
-
-
-		if (position == "" || position == undefined || follow == true)
-		{
-			alert("Position is blank");
-			$(this).on("mousemove", $(this), _mouseMove());
-		}
-
-		else
-		{
-			alert("Position is " + position);
-			$(this).on("mouseenter", $(this), _mouseEnter());	
-		}
-
-		$(this).on('mouseout', $(this), _mouseOut());
-	}	
-		
-	function _mouseEnter()
-	{
-		var top, left;
-
-		var tooltip = $('#tooltip');
-
-
-		if (tooltip.hasClass('top'))
-		{
-			top = $(this).offset().top - ($(this).height() * 2) - 10;
-			left = $(this).offset().left;
-		}
-
-		else if (tooltip.hasClass('right'))
-		{
-			top = $(this).offset().top - ($(this).height() / 2);
-			left = $(this).offset().left + tooltip.width(); 
-		}
-		
-		else if (tooltip.hasClass('bottom'))
-		{
-			top = $(this).offset().top + $(this).height() + 10;
-			left = $(this).offset().left;
-		}
-
-		else if (tooltip.hasClass('left'))
-		{
-			top = $(this).offset().top - ($(this).height() / 2);
-			left = $(this).offset().left - (tooltip.width() * 1.5);
-		}
-
-		tooltip.css('top', top).css('left', left).show();
-	}
-		
-	function _mouseMove(e)
-	{
-		var top = e.pageY + 25;
-		var left = e.pageX + 10;
-
-		$('#tooltip').css('top', top).css('left', left).show();
-	}
-	
-	function _mouseOut()
-	{
-		$('#tooltip').hide();
 	}
 
 })(jQuery);
