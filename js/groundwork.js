@@ -137,11 +137,13 @@
 
 		var options = $.extend(defaultOptions, userOptions);
 
-		var title = $(this).data('title');
-		build(title, options.position, options.follow);
-
 		$(this).mouseenter(function()
 		{
+			var title = $(this).data('title');
+			console.log("Intro: " + title);
+
+			build(title, options.position, options.follow);
+
 			var top, left;
 
 			var tooltip = $('#tooltip');
@@ -176,8 +178,13 @@
 
 		$(this).mousemove(function(e)
 		{
-			if (position == "" || position == undefined || follow == true)
+			if (options.position == "" || options.position == undefined || options.follow == true)
 			{
+				var title = $(this).data('title');
+				console.log("Intro: " + title);
+				
+				build(title, options.position, options.follow);
+
 				var top = e.pageY + 25;
 				var left = e.pageX + 10;
 
@@ -196,15 +203,21 @@
 		if ($('#tooltip'))
 		{
 			$('#tooltip-content > p').text = title;
+			console.log("Set tooltip text to: " + title);
 		}
+
 		else
 		{
-			var markup  = '<div id="tooltip ' + position + '">';
+			console.log("Position is: " + position);
+
+			var markup  = '<div id="tooltip" class=' + position + '">';
 			    markup += '<div id="tooltip-content">';
 			    markup += '<p>' + title + '</p>';
 			    markup += '<span id="tooltip-arrow"></span>';
 			    markup += '</div>';
 			    markup += '</div>';
+
+			console.log("Tooltip text is: " + title);
 
 			$('body').append(markup);
 		}
